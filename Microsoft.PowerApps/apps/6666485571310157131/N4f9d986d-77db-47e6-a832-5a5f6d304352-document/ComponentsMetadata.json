@@ -1,0 +1,25 @@
+{
+  "Components": [
+    {
+      "Name": "cmp_Header",
+      "TemplateName": "9e85a4bbcae445a284ebe15760954163",
+      "Description": "A basic Header component with Theme inputs",
+      "AllowCustomization": true,
+      "AllowAccessToGlobals": true
+    },
+    {
+      "Name": "cmp_Menu_Vertical",
+      "TemplateName": "4af6fe4beb8341fb8ae5a4dbfdfdcf4a",
+      "Description": "SideMenu Component Example",
+      "AllowCustomization": true,
+      "AllowAccessToGlobals": true
+    },
+    {
+      "Name": "cmp_Menu_Horizontal",
+      "TemplateName": "7fe82a49d4814b34a0955a0141c0485d",
+      "Description": "SideMenu Component Example",
+      "AllowCustomization": true,
+      "AllowAccessToGlobals": true
+    }
+  ]
+}

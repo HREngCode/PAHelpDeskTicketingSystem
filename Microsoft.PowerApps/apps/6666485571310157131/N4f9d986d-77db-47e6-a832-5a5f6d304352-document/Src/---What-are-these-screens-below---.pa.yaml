@@ -1,0 +1,62 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  '---What-are-these-screens-below---':
+    Properties:
+      Fill: =ControlsTheme.ScreenBackground
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =ThisTheme.Color2
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - html_BackgroundPanelDropshadow_---:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            DisabledBorderColor: =RGBA(56, 56, 56, 1)
+            Font: =Font.'Open Sans'
+            Height: ='What are these extra screens?_---'.Height+40
+            HtmlText: |-
+              ="<div style='
+                  margin: 10px;
+                  width: " & 'What are these extra screens?_---'.Width-2 & "px;
+                  height: " & 'What are these extra screens?_---'.Height-2 & "px;
+                  border-radius: 10px;
+                  box-shadow: 5px 5px 15px " & If(ThisTheme.DarkMode, "#CCCCCC" , "#444444") & ", -2.5px -2.5px 5px #555555;'>
+              </div>"
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: ='What are these extra screens?_---'.Width+40
+            X: ='What are these extra screens?_---'.X-20+5
+            Y: ='What are these extra screens?_---'.Y-20+5
+      - What are these extra screens?_---:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =ColorFade('What are these extra screens?_---'.Fill, -20%)
+            Color: =ThisTheme.Color2Text
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisplayMode: =DisplayMode.View
+            Fill: =ThisTheme.Color2
+            Font: =Font.'Open Sans'
+            Height: =688
+            HoverBorderColor: =ColorFade('What are these extra screens?_---'.BorderColor, 20%)
+            HoverColor: =ColorFade('What are these extra screens?_---'.Color, 20%)
+            HoverFill: =ColorFade('What are these extra screens?_---'.Fill, 20%)
+            PressedBorderColor: ='What are these extra screens?_---'.Fill
+            PressedColor: ='What are these extra screens?_---'.Fill
+            PressedFill: ='What are these extra screens?_---'.Color
+            Size: =32
+            TabIndex: =-1
+            Text: |-
+              ="The screens that follow are examples of how you could use the pre-configured branding to make your content.
+
+              These screens are optional and can be safely deleted"
+            Width: =1291
+            X: =40
+            Y: =40

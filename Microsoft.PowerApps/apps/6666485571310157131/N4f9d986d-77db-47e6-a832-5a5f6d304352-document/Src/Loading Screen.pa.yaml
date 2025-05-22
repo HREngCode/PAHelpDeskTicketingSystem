@@ -1,0 +1,297 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Loading Screen:
+    Properties:
+      Fill: =ControlsTheme.ScreenBackground
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =ThisTheme.Color2
+      OnVisible: |+
+        =///////////////////////////////////////////////////////////////
+        //
+        //  Start the Loading Screen
+        //
+        //  This starts the Timer, which controls the progress bar
+        //
+        //  If the data Loads before the Progress bar finishes, then
+        //  the user will be happy, and if it finishes just after
+        //  the progress bar, then you've set their expectations
+        //  with the progress bar so they are likely to be more
+        //  accepting of that slight delay.
+        //
+        //  We also set the default loading Text here.
+        //  This text is then updated during each step
+        //  of the Data Loading process.
+        //
+        ///////////////////////////////////////////////////////////////
+
+        Set(StartLoadingScreenTimer, false); Set(StartLoadingScreenTimer, true);
+        Set(LoadingText, "...");
+
+        ///////////////////////////////////////////////////////////////
+        //
+        //  Data Loading is moved to the OnTimerStart
+        //
+        //  This guaratees that the navigate to the next screen
+        //  will only happen once the data has been completely loaded
+        //
+        //  The above may not apply to your situation and you may want
+        //  the navigate set to another timer if you don't need the
+        //  loaded data to be available during your Home Screen experience.
+        //
+        ///////////////////////////////////////////////////////////////
+
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - img_Background_LS:
+          Control: Image@2.2.3
+          Properties:
+            AccessibleLabel: ="a picture of a mountain used as a background imabe"
+            BorderColor: =ColorFade(img_Background_LS.Fill, -20%)
+            Fill: =RGBA(0,0,0,0)
+            FocusedBorderColor: =img_Background_LS.BorderColor
+            Height: =Parent.Height
+            HoverBorderColor: =ColorFade(img_Background_LS.BorderColor, 20%)
+            HoverFill: =ColorFade(img_Background_LS.Fill, 20%)
+            Image: ='SMALL scenic-view-of-forest-during-night-time-1252869'
+            OnSelect: =Launch("https://www.pexels.com/public-domain-images/")
+            PressedBorderColor: =ColorFade(img_Background_LS.BorderColor, -20%)
+            PressedFill: =ColorFade(img_Background_LS.Fill, -20%)
+            Transparency: =0.5-(tmr_LoadingAction_LS.Value / tmr_LoadingAction_LS.Duration)
+            Width: =Parent.Width
+            X: =0*1
+            Y: =0*1
+      - lbl_LoadingText_LS:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =ControlsTheme.LabelBorderColor
+            Color: =ThisTheme.Color2Text
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =RGBA( 0,0,0, 25%)
+            FocusedBorderThickness: =1
+            Font: =ControlsTheme.LabelFont
+            Height: =lbl_LoadingBarOutline_LS.Height*2 + 15
+            PaddingBottom: =10
+            PaddingLeft: =10
+            PaddingRight: =10
+            PaddingTop: =10
+            Size: =FontSizes.TextEmphasis
+            TabIndex: =0
+            Text: =lbl_LoadingBarOutline_LS.Value & "%" & Char(10) & LoadingText
+            VerticalAlign: =VerticalAlign.Bottom
+            Width: =lbl_LoadingBarOutline_LS.Width + 20
+            X: =lbl_LoadingBarOutline_LS.X -10
+            Y: =lbl_LoadingBarOutline_LS.Y -10
+      - lbl_LoadingBarOutline_LS:
+          Control: Classic/Slider@2.1.0
+          Properties:
+            AccessibleLabel: ="n/a"
+            BorderColor: =ControlsTheme.LabelBorderColor
+            BorderThickness: =4
+            Default: =(tmr_LoadingAction_LS.Value/tmr_LoadingAction_LS.Duration)*100
+            DisplayMode: =DisplayMode.View
+            HandleActiveFill: =ThisTheme.Color2Text
+            HandleFill: =ThisTheme.Color2Text
+            HandleHoverFill: =ThisTheme.Color2Text
+            HandleSize: =Self.Height*90%
+            Height: =60
+            HoverBorderColor: =ControlsTheme.SliderHoverBorderColor
+            PressedBorderColor: =ControlsTheme.SliderPressedBorderColor
+            RailFill: =ColorFade(ThisTheme.Color1, 20%)
+            RailHoverFill: =ColorFade(ThisTheme.Color1, 20%)
+            RailThickness: =Self.Height/2
+            ShowValue: =false
+            ValueFill: =ThisTheme.Color2
+            ValueHoverFill: =Self.ValueFill
+            Width: =1206
+            X: =80
+            Y: =495
+      - tmr_LoadingAction_LS:
+          Control: Timer@2.1.0
+          Properties:
+            BorderColor: =ControlsTheme.TimerBorderColor
+            Color: =ControlsTheme.TimerTextColor
+            DisabledBorderColor: =ColorFade(Self.BorderColor, 70%)
+            DisabledColor: =ColorFade(Self.Fill, 90%)
+            DisabledFill: =ColorFade(Self.Fill, 70%)
+            Duration: =5000
+            Fill: =ControlsTheme.TimerFill
+            Font: =ControlsTheme.TimerFont
+            HoverBorderColor: =ControlsTheme.TimerHoverBorderColor
+            HoverColor: =ControlsTheme.TimerHoverColor
+            HoverFill: =ControlsTheme.TimerHoverFill
+            OnTimerEnd: |-
+              =///////////////////////////////////////////////////////////////
+              //
+              //  For Demo purposes I have the navigate here
+              //
+              //  This idea here is to give the user 5 seconds of a loading screen max,
+              //  With Text updating below it with every action you do (in this screen's
+              //  OnVisible), this keeps the user occupied while the data loads instead
+              //  of just watching a 'spinner' with no indication or information
+              //
+              //  If you need the user to wait until all of the data is loaded
+              //  then just keep the 'false' value below
+              //
+              ///////////////////////////////////////////////////////////////
+              Navigate('Home Screen', ScreenTransition.Fade);
+
+              //false
+            OnTimerStart: |-
+              =false;
+              ///////////////////////////////////////////////////////////////
+              //
+              //  Load Your App Data Here
+              //
+              //  It is better to have the user in the App viewing this
+              //  progress than to have them seeing the pre-loader for
+              //  the App. Combine this with Text Messages on the label
+              //  telling the users what you are doing or loading and the
+              //  users will not lose focus. Expected attention span is
+              //  around 0.5s, so there needs to be feedback to keep
+              //  them from just arbitrarily waiting.
+              //
+              //  Wherever possible you should have as little loading
+              //  done during your App OnStart as Possible, as this is done
+              //  during the pre-loader stage before any App screens are
+              //  visible to the user. The variables set during the current
+              //  onStart I have here take only a fractional amount of 
+              //  time to set and are necessary during the OnStart phase,
+              //  as they define the variables that every object's 
+              //  property colours are set to.
+              //
+              ///////////////////////////////////////////////////////////////
+
+              /////////////Some example data collection frameworks///////////////
+              //
+              // ClearCollect(
+              //              LocalCopyOfDataSource,
+              //              DataSource
+              // );
+              //
+              // OR maybe something like:
+              //
+              // ClearCollect(
+              //              LocalCopyOfFilteredDataSource,
+              //              Filter(
+              //                     DataSource,
+              //                     ValueToFilter = ValueToFilterBy
+              //              )
+              // );
+              //
+              // OR maybe something like:
+              //
+              // Set(
+              //     TheCurrentItem,
+              //     LookUp(
+              //            DataSource,
+              //            ValueToFilter = ValueToFilterBy,
+              //            SecondaryValueToFilter = SecondaryValueToFilterBy,
+              //            StartsWith(TertiaryValueToFilter, TertiaryValueToFilterBy)
+              //              ||
+              //            QuarternaryValueToOptionallyFilter = QuarternaryValueToOptionallyFilterBy
+                            //These || mean OR
+                            //These && mean AND
+
+              //     )
+              // );
+
+
+              ///////////////////////////////////////////////////////////////
+              //
+              //  Navigate to the 'Home' screen once data is loaded
+              //
+              //  Instead of having our timer do the navigation, we have
+              //  the app navigate once it's completed loading the data 
+              //  (i.e once the loading steps above have completed)
+              //
+              //  When the timer completes, it stops, making the
+              //  loading bar look like its at 100% and waiting to navigate.
+              //  This is better from a user perspective for delays,
+              //  Feedback I've received is that they believe the App is
+              //  'thinking' after loading all of the data.
+              //
+              ///////////////////////////////////////////////////////////////
+
+              //Navigate('Home Screen', ScreenTransition.Fade);
+
+              ///////////////////////////////////////////////////////////////
+              //
+              //  Reset the timer
+              //
+              //  This is purely for demo purposes,
+              //  and so is the arrow on the next screen,
+              //  as you'd not normally have a user
+              //  come back to the loading screen...
+              //
+              ///////////////////////////////////////////////////////////////
+              //Reset(tmr_LoadingScreen);
+              0+0;
+            PressedBorderColor: =ControlsTheme.TimerPressedBorderColor
+            PressedColor: =ControlsTheme.TimerPressedColor
+            PressedFill: =ControlsTheme.TimerPressedFill
+            Size: =ControlsFontSizes.TimerFontSize
+            Start: =StartLoadingScreenTimer
+            TabIndex: =-1
+            Tooltip: ="This should be hidden - this loads your data and then navigates away"
+            Visible: =false
+            X: =603
+      - img_YourLogoHere_LS:
+          Control: Image@2.2.3
+          Properties:
+            AccessibleLabel: ="this is your company logo - navigates to a website"
+            BorderColor: =Color.White
+            BorderThickness: =6
+            Fill: =ThisTheme.Color3
+            Height: =250
+            HoverBorderColor: =ThisTheme.Color3
+            HoverFill: =ThisTheme.Color2
+            Image: =logo
+            OnSelect: =Launch("https://github.com/P3N-101/icon-menu-builder")
+            PaddingBottom: =Self.Width/10
+            PaddingLeft: =Self.Width/10
+            PaddingRight: =Self.Width/10
+            PaddingTop: =Self.Width/10
+            PressedBorderColor: =ControlsTheme.ImagePressedBorderColor
+            PressedFill: =ControlsTheme.ImagePressedFill
+            RadiusBottomLeft: =Self.Width/2
+            RadiusBottomRight: =Self.Width/2
+            RadiusTopLeft: =Self.Width/2
+            RadiusTopRight: =Self.Width/2
+            Width: =250
+            X: =80
+            Y: =90
+      - lbl_WhereToGetImagesAndIcons_LS:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            BorderColor: =ControlsTheme.LabelBorderColor
+            Color: =ThisTheme.Color2Text
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =RGBA( 0,0,0, 50%)
+            Font: =ControlsTheme.LabelFont
+            Height: =241
+            PaddingBottom: =80
+            PaddingLeft: =80
+            PaddingRight: =80
+            PaddingTop: =80
+            Size: =FontSizes.TextEmphasis
+            Text: |-
+              ="Free Images like this background:
+              https://www.pexels.com/public-domain-images/
+              (These images are shared with a Creative Commons Zero License and are free for use.
+              Please say thanks to the authors for making the image you use available!)
+
+              For icons please have a look at Pen Warner's Icon Menu Builder (29k+ icons):
+              https://github.com/P3N-101/icon-menu-builder"
+            Tooltip: =Self.Text
+            Width: =933
+            X: =363
+            Y: =90

@@ -1,0 +1,671 @@
+# ************************************************************************************************
+# Warning: YAML source code for Canvas Apps should only be used to review changes made within Power Apps Studio and for minor edits (Preview).
+# Use the maker portal to create and edit your Power Apps.
+# 
+# The schema file for Canvas Apps is available at https://go.microsoft.com/fwlink/?linkid=2304907
+# 
+# For more information, visit https://go.microsoft.com/fwlink/?linkid=2292623
+# ************************************************************************************************
+Screens:
+  Multiple Layouts Screen:
+    Properties:
+      Fill: =ControlsTheme.ScreenBackground
+      Height: =Max(App.Height, App.DesignHeight)
+      LoadingSpinnerColor: =ThisTheme.Color2
+      Width: =Max(App.Width, App.DesignWidth)
+    Children:
+      - html_BackgroundPanelDropshadow_HSLE:
+          Control: HtmlViewer@2.1.0
+          Properties:
+            DisabledBorderColor: =RGBA(56, 56, 56, 1)
+            Font: =Font.'Open Sans'
+            Height: =btn_BackgroundPanel_HSLE.Height+40
+            HtmlText: |-
+              ="<div style='
+                  margin: 10px;
+                  width: " & btn_BackgroundPanel_HSLE.Width-2 & "px;
+                  height: " & btn_BackgroundPanel_HSLE.Height-2 & "px;
+                  border-radius: 10px;
+                  box-shadow: 5px 5px 15px " & If(ThisTheme.DarkMode, "#CCCCCC" , "#444444") & ", -2.5px 5px 5px #555555'>
+              </div>"
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Width: =btn_BackgroundPanel_HSLE.Width+40
+            X: =btn_BackgroundPanel_HSLE.X-20+5
+            Y: =btn_BackgroundPanel_HSLE.Y-20+5
+      - btn_BackgroundPanel_HSLE:
+          Control: Classic/Button@2.2.0
+          Properties:
+            BorderColor: =ColorFade(btn_BackgroundPanel_HSLE.Fill, -20%)
+            Color: =ThisTheme.Color2Text
+            DisabledBorderColor: =RGBA(166, 166, 166, 1)
+            DisplayMode: =DisplayMode.View
+            Fill: =ThisTheme.Color2
+            Font: =Font.'Open Sans'
+            Height: =675
+            HoverBorderColor: =ColorFade(btn_BackgroundPanel_HSLE.BorderColor, 20%)
+            HoverColor: =ColorFade(btn_BackgroundPanel_HSLE.Color, 20%)
+            HoverFill: =ColorFade(btn_BackgroundPanel_HSLE.Fill, 20%)
+            PressedBorderColor: =btn_BackgroundPanel_HSLE.Fill
+            PressedColor: =btn_BackgroundPanel_HSLE.Fill
+            PressedFill: =btn_BackgroundPanel_HSLE.Color
+            TabIndex: =-1
+            Text: =""
+            Width: =1230
+            X: =115
+            Y: =70
+      - glr_ScreenNavigation_HSLE:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Horizontal_TwoTextOneImageVariant_ver4.0
+          Properties:
+            AccessibleLabel: ="example navigation gallery"
+            BorderColor: =ThisTheme.Color2
+            DelayItemLoading: =false
+            Height: =768
+            Items: =ScreensNavigation
+            LoadingSpinner: =LoadingSpinner.None
+            ShowScrollbar: =false
+            TemplateSize: |-
+              =Self.Width
+              //Self.Height/CountRows(ScreensNavigation)
+            Width: =98
+            WrapCount: =CountRows(ScreensNavigation)
+          Children:
+            - ico_ScreenIcon_ScreenNavigation_HSLE:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AccessibleLabel: ="navigate to " & ThisItem.Name
+                  BorderColor: =ThisTheme.Color1Text
+                  Color: =ThisTheme.Color1Text
+                  DisabledFill: =ColorFade(ico_ScreenIcon_ScreenNavigation_HSLE.Fill, -80%)
+                  Fill: =ThisTheme.Color1
+                  FocusedBorderThickness: =If(Self.Width*1% > 4, Self.Width*1%, 4)
+                  Height: =(Parent.TemplateHeight)*90%
+                  HoverBorderColor: =ColorFade(ico_ScreenIcon_ScreenNavigation_HSLE.BorderColor, 20%)
+                  HoverColor: =ThisTheme.Color2
+                  HoverFill: =ThisTheme.Color2Text
+                  Icon: =ThisItem.Icon
+                  OnSelect: =Select(Parent); Navigate(ThisItem.Screen, ScreenTransition.CoverRight)
+                  PaddingBottom: =RoundUp(Self.Height*10%,0)
+                  PaddingLeft: =RoundUp(Self.Height*10%,0)
+                  PaddingRight: =RoundUp(Self.Height*10%,0)
+                  PaddingTop: =RoundUp(Self.Height*10%,0)
+                  PressedBorderColor: =ColorFade(ico_ScreenIcon_ScreenNavigation_HSLE.BorderColor, -20%)
+                  PressedColor: =ThisTheme.Color3Text
+                  PressedFill: =ThisTheme.Color3
+                  TabIndex: =0
+                  Tooltip: =ThisItem.Tooltip
+                  Width: =(Parent.TemplateWidth)*90%
+                  X: =RoundDown((Parent.TemplateWidth) * 5%, 0)
+                  Y: =RoundDown((Parent.TemplateHeight) * 5%, 0)
+      - lbl_MidGalleryPanel_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color3
+            Font: =Font.'Open Sans'
+            Height: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 335,
+                     2, 636,
+                     3, 225,
+                     335)
+            Text: =
+            Width: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 880,
+                     2, 400,
+                     3, 400,
+                     880)
+            X: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 130,
+                     2, 130,
+                     3, 130,
+                     130)
+            Y: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 88,
+                     2, 88,
+                     3, 88,
+                     88)
+      - lbl_MidPanel1_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color3
+            Font: =Font.'Open Sans'
+            Height: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 279,
+                     2, 340,
+                     3, 225,
+                     279)
+            Text: =
+            Width: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 430,
+                     2, 460,
+                     3, 780,
+                     430)
+            X: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 130,
+                     2, 550,
+                     3, 550,
+                     130)
+            Y: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 445,
+                     2, 88,
+                     3, 88,
+                     445)
+      - lbl_MidPanel2_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color3
+            Font: =Font.'Open Sans'
+            Height: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 279,
+                     2, 279,
+                     3, 405,
+                     279)
+            Text: =
+            Width: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 430,
+                     2, 460,
+                     3, 480,
+                     430)
+            X: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 584,
+                     2, 550,
+                     3, 850,
+                     584)
+            Y: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 445,
+                     2, 445,
+                     3, 325,
+                     445)
+      - lbl_MidPanel3_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color3
+            Font: =Font.'Open Sans'
+            Height: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 636,
+                     2, 636,
+                     3, 406,
+                     636)
+            Text: =
+            Width: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 303,
+                     2, 303,
+                     3, 703,
+                     303)
+            X: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 1029,
+                     2, 1029,
+                     3, 130,
+                     1029)
+            Y: |-
+              =Switch(glr_TabbedNavigation_HSLE.Selected.ID,
+                     1, 88,
+                     2, 88,
+                     3, 325,
+                     88)
+      - lbl_FrontPanel1_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color1
+            Font: =Font.'Open Sans'
+            Height: =lbl_MidPanel1_HSLE.Height-20
+            Text: =
+            Width: =lbl_MidPanel1_HSLE.Width-20
+            X: =lbl_MidPanel1_HSLE.X+10
+            Y: =lbl_MidPanel1_HSLE.Y+10
+      - lbl_FrontPanel2_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color1
+            Font: =Font.'Open Sans'
+            Height: =lbl_MidPanel2_HSLE.Height-20
+            Text: =
+            Width: =lbl_MidPanel2_HSLE.Width-20
+            X: =lbl_MidPanel2_HSLE.X+10
+            Y: =lbl_MidPanel2_HSLE.Y+10
+      - lbl_FrontPanel3_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =ThisTheme.Color2
+            Color: =ThisTheme.defaultTextColor
+            DisabledFill: =RGBA(0,0,0,0)
+            Fill: =ThisTheme.Color1
+            Font: =Font.'Open Sans'
+            Height: =lbl_MidPanel3_HSLE.Height-20
+            Text: =
+            Width: =lbl_MidPanel3_HSLE.Width-20
+            X: =lbl_MidPanel3_HSLE.X +10
+            Y: =lbl_MidPanel3_HSLE.Y +10
+      - lbl_ItemTitle2_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =ThisTheme.defaultTextColor
+            FocusedBorderColor: =lbl_ItemTitle2_HSLE.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =lbl_FrontPanel1_HSLE.Height-20
+            HoverBorderColor: =lbl_ItemTitle2_HSLE.BorderColor
+            HoverColor: =lbl_ItemTitle2_HSLE.Color
+            HoverFill: =lbl_ItemTitle2_HSLE.Fill
+            OnSelect: =
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            PressedBorderColor: =lbl_ItemTitle2_HSLE.BorderColor
+            PressedColor: =lbl_ItemTitle2_HSLE.Color
+            PressedFill: =lbl_ItemTitle2_HSLE.Fill
+            Size: =FontSizes.TextEmphasis
+            Text: =glr_Item_HSLE.Selected.Description
+            VerticalAlign: =VerticalAlign.Top
+            Width: =lbl_FrontPanel1_HSLE.Width-20
+            X: =lbl_FrontPanel1_HSLE.X+10
+            Y: =lbl_FrontPanel1_HSLE.Y+10
+      - lbl_ItemTitle1_HSLE:
+          Control: Label@2.5.1
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =ThisTheme.defaultTextColor
+            FocusedBorderColor: =lbl_ItemTitle1_HSLE.BorderColor
+            Font: =Font.'Open Sans'
+            FontWeight: =FontWeight.Semibold
+            Height: =lbl_FrontPanel2_HSLE.Height-20
+            HoverBorderColor: =lbl_ItemTitle1_HSLE.BorderColor
+            HoverColor: =lbl_ItemTitle1_HSLE.Color
+            HoverFill: =lbl_ItemTitle1_HSLE.Fill
+            OnSelect: =
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            PressedBorderColor: =lbl_ItemTitle1_HSLE.BorderColor
+            PressedColor: =lbl_ItemTitle1_HSLE.Color
+            PressedFill: =lbl_ItemTitle1_HSLE.Fill
+            Size: =FontSizes.TextEmphasis
+            Text: =glr_Item_HSLE.Selected.Description
+            VerticalAlign: =VerticalAlign.Top
+            Width: =lbl_FrontPanel2_HSLE.Width-20
+            X: =lbl_FrontPanel2_HSLE.X+10
+            Y: =lbl_FrontPanel2_HSLE.Y+10
+      - glr_Detail_HSLE:
+          Control: Gallery@2.15.0
+          Variant: VariableHeight
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            AccessibleLabel: ="A detail view of the selected gallery item"
+            BorderColor: =ThisTheme.Color2
+            DelayItemLoading: =false
+            Height: =lbl_FrontPanel3_HSLE.Height-20
+            Items: =Filter(GalleryExample1, Title=glr_Item_HSLE.Selected.Title)
+            LoadingSpinner: =LoadingSpinner.None
+            TemplateSize: =Self.Width
+            Width: =lbl_FrontPanel3_HSLE.Width-20
+            X: =lbl_FrontPanel3_HSLE.X + 10
+            Y: =lbl_FrontPanel3_HSLE.Y + 10
+          Children:
+            - img_ItemImage_DetailGallery_HSLE:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =ColorFade(img_ItemImage_DetailGallery_HSLE.Fill, -20%)
+                  Fill: =RGBA(0,0,0,0)
+                  FocusedBorderColor: =img_ItemImage_DetailGallery_HSLE.BorderColor
+                  Height: =Min(Parent.TemplateWidth/3, Parent.Height/3)
+                  HoverBorderColor: =ColorFade(img_ItemImage_DetailGallery_HSLE.BorderColor, 20%)
+                  HoverFill: =ColorFade(img_ItemImage_DetailGallery_HSLE.Fill, 20%)
+                  Image: =ThisItem.Image
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =ColorFade(img_ItemImage_DetailGallery_HSLE.BorderColor, -20%)
+                  PressedFill: =ColorFade(img_ItemImage_DetailGallery_HSLE.Fill, -20%)
+                  Width: =Min(Parent.TemplateWidth/3, Parent.Height/3)
+            - lbl_ItemTitle_DetailGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =ThisTheme.defaultTextColor
+                  FocusedBorderColor: =lbl_ItemTitle_DetailGallery_HSLE.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =121
+                  HoverBorderColor: =lbl_ItemTitle_DetailGallery_HSLE.BorderColor
+                  HoverColor: =lbl_ItemTitle_DetailGallery_HSLE.Color
+                  HoverFill: =lbl_ItemTitle_DetailGallery_HSLE.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lbl_ItemTitle_DetailGallery_HSLE.BorderColor
+                  PressedColor: =lbl_ItemTitle_DetailGallery_HSLE.Color
+                  PressedFill: =lbl_ItemTitle_DetailGallery_HSLE.Fill
+                  Size: =FontSizes.Title
+                  Text: =ThisItem.Title
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.Width - Self.X - 10
+                  X: =img_ItemImage_DetailGallery_HSLE.X + img_ItemImage_DetailGallery_HSLE.Width + 10
+                  Y: =img_ItemImage_DetailGallery_HSLE.Y
+            - lbl_subTitle_DetailGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: =ThisTheme.defaultTextColor
+                  FocusedBorderColor: =lbl_subTitle_DetailGallery_HSLE.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =40+0
+                  HoverBorderColor: =lbl_subTitle_DetailGallery_HSLE.BorderColor
+                  HoverColor: =lbl_subTitle_DetailGallery_HSLE.Color
+                  HoverFill: =lbl_subTitle_DetailGallery_HSLE.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lbl_subTitle_DetailGallery_HSLE.BorderColor
+                  PressedColor: =lbl_subTitle_DetailGallery_HSLE.Color
+                  PressedFill: =lbl_subTitle_DetailGallery_HSLE.Fill
+                  Size: =FontSizes.SubTitle
+                  Text: =ThisItem.Subtitle
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.TemplateWidth
+                  X: =0+0
+                  Y: =img_ItemImage_DetailGallery_HSLE.Y + img_ItemImage_DetailGallery_HSLE.Height + 10
+            - lbl_Description_DetailGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =ThisTheme.Color2
+                  Color: =ThisTheme.defaultTextColor
+                  DisabledFill: =RGBA(0,0,0,0)
+                  Fill: =RGBA(0,0,0,0)
+                  FocusedBorderColor: =lbl_Description_DetailGallery_HSLE.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =Parent.Height-Self.Y - 10
+                  HoverBorderColor: =lbl_Description_DetailGallery_HSLE.BorderColor
+                  HoverColor: =lbl_Description_DetailGallery_HSLE.Color
+                  HoverFill: =lbl_Description_DetailGallery_HSLE.Fill
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =lbl_Description_DetailGallery_HSLE.BorderColor
+                  PressedColor: =lbl_Description_DetailGallery_HSLE.Color
+                  PressedFill: =lbl_Description_DetailGallery_HSLE.Fill
+                  Size: =FontSizes.TextEmphasis
+                  Text: =ThisItem.Description
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.TemplateWidth
+                  Y: =lbl_subTitle_DetailGallery_HSLE.Y + lbl_subTitle_DetailGallery_HSLE.Height + 10
+      - glr_Item_HSLE:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0
+          Group: grp_DetailPanelsHomeExamples_HSLE
+          Properties:
+            AccessibleLabel: ="A gallery of items"
+            BorderColor: =ThisTheme.Color2
+            DelayItemLoading: =false
+            Fill: =ThisTheme.Color3
+            Height: =lbl_MidGalleryPanel_HSLE.Height-20
+            Items: =GalleryExample1
+            LoadingSpinner: =LoadingSpinner.None
+            ShowNavigation: =true
+            ShowScrollbar: =false
+            TemplateSize: =100
+            Transition: =Transition.Pop
+            Width: =lbl_MidGalleryPanel_HSLE.Width
+            X: =lbl_MidGalleryPanel_HSLE.X
+            Y: =lbl_MidGalleryPanel_HSLE.Y+10
+          Children:
+            - lbl_Background_ItemGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =ThisTheme.Color2
+                  Color: =ThisTheme.defaultTextColor
+                  DisabledFill: =RGBA(0,0,0,0)
+                  Fill: |-
+                    =If(ThisTheme.DarkMode && ThisItem.IsSelected,
+                       ThisTheme.Color1,
+                       ThisItem.IsSelected,
+                       ThisTheme.Color1,
+                       ThisTheme.DarkMode,
+                       ThisTheme.Color2,
+                       !ThisTheme.DarkMode,
+                       ThisTheme.Color2)
+                  FocusedBorderColor: =lbl_Background_ItemGallery_HSLE.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =Parent.TemplateHeight * 85%
+                  HoverBorderColor: =lbl_Background_ItemGallery_HSLE.BorderColor
+                  HoverColor: =lbl_Background_ItemGallery_HSLE.Color
+                  HoverFill: =lbl_Background_ItemGallery_HSLE.Fill
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =lbl_Background_ItemGallery_HSLE.BorderColor
+                  PressedColor: =lbl_Background_ItemGallery_HSLE.Color
+                  PressedFill: =lbl_Background_ItemGallery_HSLE.Fill
+                  Text: =""
+                  Width: =Parent.Width-30
+                  X: =15*1
+                  Y: =15*1
+            - img_ItemImage_ItemGallery_HSLE:
+                Control: Image@2.2.3
+                Properties:
+                  BorderColor: =ColorFade(img_ItemImage_ItemGallery_HSLE.Fill, -20%)
+                  Fill: =RGBA(0,0,0,0)
+                  FocusedBorderColor: =img_ItemImage_ItemGallery_HSLE.BorderColor
+                  Height: =70
+                  HoverBorderColor: =ColorFade(img_ItemImage_ItemGallery_HSLE.BorderColor, 20%)
+                  HoverFill: =ColorFade(img_ItemImage_ItemGallery_HSLE.Fill, 20%)
+                  Image: =ThisItem.Image
+                  OnSelect: =Select(Parent)
+                  PressedBorderColor: =ColorFade(img_ItemImage_ItemGallery_HSLE.BorderColor, -20%)
+                  PressedFill: =ColorFade(img_ItemImage_ItemGallery_HSLE.Fill, -20%)
+                  Width: =70
+                  X: =(lbl_Background_ItemGallery_HSLE.Y) + (lbl_Background_ItemGallery_HSLE.Height- img_ItemImage_ItemGallery_HSLE.Height) * 50%
+                  Y: =(lbl_Background_ItemGallery_HSLE.Y) + (lbl_Background_ItemGallery_HSLE.Height- img_ItemImage_ItemGallery_HSLE.Height) * 50%
+            - lbl_Title_ItemGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: |-
+                    =If(ThisTheme.DarkMode && ThisItem.IsSelected,
+                       ThisTheme.Color1Text,
+                       ThisItem.IsSelected,
+                       ThisTheme.Color1Text,
+                       ThisTheme.DarkMode,
+                       ThisTheme.Color2Text,
+                       !ThisTheme.DarkMode,
+                       ThisTheme.Color2Text)
+                  FocusedBorderColor: =lbl_Title_ItemGallery_HSLE.BorderColor
+                  Font: =Font.'Open Sans'
+                  FontWeight: =FontWeight.Semibold
+                  Height: =lbl_Title_ItemGallery_HSLE.Size * 1.8
+                  HoverBorderColor: =lbl_Title_ItemGallery_HSLE.BorderColor
+                  HoverColor: =lbl_Title_ItemGallery_HSLE.Color
+                  HoverFill: =lbl_Title_ItemGallery_HSLE.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lbl_Title_ItemGallery_HSLE.BorderColor
+                  PressedColor: =lbl_Title_ItemGallery_HSLE.Color
+                  PressedFill: =lbl_Title_ItemGallery_HSLE.Fill
+                  Size: =FontSizes.Title
+                  Text: =ThisItem.Title
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =Parent.TemplateWidth - img_ItemImage_ItemGallery_HSLE.Width - 104
+                  X: =img_ItemImage_ItemGallery_HSLE.X + img_ItemImage_ItemGallery_HSLE.Width + 24
+                  Y: =25
+            - lbl_Subtitle_ItemGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  Color: |-
+                    =If(ThisTheme.DarkMode && ThisItem.IsSelected,
+                       ThisTheme.Color1Text,
+                       ThisItem.IsSelected,
+                       ThisTheme.Color1Text,
+                       ThisTheme.DarkMode,
+                       ThisTheme.Color2Text,
+                       !ThisTheme.DarkMode,
+                       ThisTheme.Color2Text)
+                  FocusedBorderColor: =lbl_Subtitle_ItemGallery_HSLE.BorderColor
+                  Font: =Font.'Open Sans'
+                  Height: =lbl_Subtitle_ItemGallery_HSLE.Size * 1.8
+                  HoverBorderColor: =lbl_Subtitle_ItemGallery_HSLE.BorderColor
+                  HoverColor: =lbl_Subtitle_ItemGallery_HSLE.Color
+                  HoverFill: =lbl_Subtitle_ItemGallery_HSLE.Fill
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =0
+                  PaddingLeft: =0
+                  PaddingRight: =0
+                  PaddingTop: =0
+                  PressedBorderColor: =lbl_Subtitle_ItemGallery_HSLE.BorderColor
+                  PressedColor: =lbl_Subtitle_ItemGallery_HSLE.Color
+                  PressedFill: =lbl_Subtitle_ItemGallery_HSLE.Fill
+                  Size: =FontSizes.SubTitle
+                  Text: =ThisItem.Subtitle
+                  VerticalAlign: =VerticalAlign.Top
+                  Width: =lbl_Title_ItemGallery_HSLE.Width
+                  X: =lbl_Title_ItemGallery_HSLE.X
+                  Y: =lbl_Title_ItemGallery_HSLE.Y + lbl_Title_ItemGallery_HSLE.Height + 4
+            - ico_NextArrow_ItemGallery_HSLE:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AccessibleLabel: =ico_NextArrow_ItemGallery_HSLE.Tooltip
+                  BorderColor: =ColorFade(ico_NextArrow_ItemGallery_HSLE.Fill, -20%)
+                  Color: |-
+                    =If(ThisTheme.DarkMode && ThisItem.IsSelected,
+                       ThisTheme.Color1Text,
+                       ThisItem.IsSelected,
+                       ThisTheme.Color1Text,
+                       ThisTheme.DarkMode,
+                       ThisTheme.Color2Text,
+                       !ThisTheme.DarkMode,
+                       ThisTheme.Color3Text)
+                  DisabledFill: =ColorFade(ico_NextArrow_ItemGallery_HSLE.Fill, -80%)
+                  Fill: =RGBA(0,0,0,0)
+                  FocusedBorderColor: =ico_NextArrow_ItemGallery_HSLE.BorderColor
+                  Height: =60
+                  HoverBorderColor: =ColorFade(ico_NextArrow_ItemGallery_HSLE.BorderColor, 20%)
+                  HoverColor: =ColorFade(ico_NextArrow_ItemGallery_HSLE.Color, 20%)
+                  HoverFill: =ColorFade(ico_NextArrow_ItemGallery_HSLE.Fill, 20%)
+                  Icon: =If(ThisItem.IsSelected, Icon.Post, Icon.ChevronRight)
+                  OnSelect: =Select(Parent)
+                  PaddingBottom: =10
+                  PaddingLeft: =10
+                  PaddingRight: =10
+                  PaddingTop: =10
+                  PressedBorderColor: =ColorFade(ico_NextArrow_ItemGallery_HSLE.BorderColor, -20%)
+                  PressedColor: =ColorFade(ico_NextArrow_ItemGallery_HSLE.Color, -20%)
+                  PressedFill: =ColorFade(ico_NextArrow_ItemGallery_HSLE.Fill, -20%)
+                  Tooltip: ="View item details"
+                  Width: =60
+                  X: =Parent.TemplateWidth - ico_NextArrow_ItemGallery_HSLE.Width - 5
+                  Y: =lbl_HoverFill_ItemGallery_HSLE.Y + (lbl_HoverFill_ItemGallery_HSLE.Height - Self.Height)/2
+            - lbl_HoverFill_ItemGallery_HSLE:
+                Control: Label@2.5.1
+                Properties:
+                  BorderColor: =ThisTheme.Color2
+                  Color: =ThisTheme.defaultTextColor
+                  DisabledFill: =RGBA(0,0,0,0)
+                  FocusedBorderColor: =Color.White
+                  FocusedBorderThickness: =2
+                  Font: =Font.'Open Sans'
+                  Height: =Parent.TemplateHeight * 85%
+                  HoverBorderColor: =lbl_HoverFill_ItemGallery_HSLE.BorderColor
+                  HoverColor: =lbl_HoverFill_ItemGallery_HSLE.Color
+                  HoverFill: =RGBA(255,255,255, 10%)
+                  OnSelect: =Select(Parent);
+                  PressedBorderColor: =lbl_HoverFill_ItemGallery_HSLE.BorderColor
+                  PressedColor: =lbl_HoverFill_ItemGallery_HSLE.Color
+                  PressedFill: =lbl_HoverFill_ItemGallery_HSLE.Fill
+                  TabIndex: =0
+                  Text: =""
+                  Width: =Parent.Width-30
+                  X: =15*1
+                  Y: =15*1
+      - glr_TabbedNavigation_HSLE:
+          Control: Gallery@2.15.0
+          Variant: BrowseLayout_Horizontal_TwoTextOneImageVariant_ver4.0
+          Properties:
+            AccessibleLabel: ="example tabbed screen layouts"
+            BorderColor: =ThisTheme.Color2
+            DelayItemLoading: =false
+            Height: =64
+            Items: =TabbedMenu1
+            LoadingSpinner: =LoadingSpinner.None
+            TemplateSize: =Self.Width/TabbedMenu1Rows // did this to avoid divide by zero error
+            Width: =1238
+            WrapCount: =0
+            X: =115
+            Y: =10
+          Children:
+            - ico_TabIcon_TabbedNavigation_HSLE:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  AccessibleLabel: ="select this navigation"
+                  BorderColor: =ThisTheme.Color1Text
+                  Color: =If(ThisItem.IsSelected, ThisTheme.Color2Text, ThisTheme.Color3Text)
+                  DisabledFill: =ColorFade(ico_TabIcon_TabbedNavigation_HSLE.Fill, -80%)
+                  Fill: =If(ThisItem.IsSelected, ThisTheme.Color2, ThisTheme.Color3)
+                  FocusedBorderColor: =Color.White
+                  FocusedBorderThickness: =If(Self.Width*1% > 4, Self.Width*1%, 4)
+                  Height: =(Parent.TemplateHeight)*90%
+                  HoverBorderColor: =ColorFade(ico_TabIcon_TabbedNavigation_HSLE.BorderColor, 20%)
+                  HoverColor: =ThisTheme.Color2
+                  HoverFill: =ThisTheme.Color2Text
+                  Icon: =ThisItem.Icon
+                  OnSelect: |-
+                    =Select(Parent);
+                    // Navigate(ThisItem.Screen)
+                  PaddingBottom: =Self.Height*5%
+                  PaddingLeft: =Self.Width*5%
+                  PaddingRight: =Self.Width*5%
+                  PaddingTop: =Self.Height*5%
+                  PressedBorderColor: =ColorFade(ico_TabIcon_TabbedNavigation_HSLE.BorderColor, -20%)
+                  PressedColor: =ThisTheme.Color3Text
+                  PressedFill: =ThisTheme.Color3
+                  TabIndex: =0
+                  Tooltip: =ThisItem.Name
+                  Width: =(Parent.TemplateWidth)*90%
+                  X: =(Parent.TemplateWidth) * 5%
+                  Y: =(Parent.TemplateHeight) * 5%
